@@ -20,6 +20,11 @@ export class CommandLineArgumentSettingsLoader extends SettingsLoader {
 				type: "string",
 				demandOption: false,
 			})
+			.option("apiPrefix", {
+				describe: "Confluence URL API prefix (/wiki/rest by default)",
+				type: "string",
+				demandOption: false,
+			})
 			.option("parentId", {
 				alias: "p",
 				describe: "Confluence parent ID",
@@ -34,6 +39,11 @@ export class CommandLineArgumentSettingsLoader extends SettingsLoader {
 			})
 			.option("apiToken", {
 				describe: "Atlassian API token",
+				type: "string",
+				demandOption: false,
+			})
+			.option("personalAccessToken", {
+				describe: "Personal access token",
 				type: "string",
 				demandOption: false,
 			})

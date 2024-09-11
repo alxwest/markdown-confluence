@@ -18,6 +18,8 @@ export class EnvironmentVariableSettingsLoader extends SettingsLoader {
 			...this.getValue("atlassianApiToken", "ATLASSIAN_API_TOKEN"),
 			...this.getValue("folderToPublish", "FOLDER_TO_PUBLISH"),
 			...this.getValue("contentRoot", "CONFLUENCE_CONTENT_ROOT"),
+			...this.getValue("apiPrefix", "CONFLUENCE_API_PREFIX"),
+			...this.getValue("personalAccessToken", "ATLASSIAN_PERSONAL_TOKEN"),
 			firstHeadingPageTitle:
 				(process.env["CONFLUENCE_FIRST_HEADING_PAGE_TITLE"] ??
 					"false") === "true",

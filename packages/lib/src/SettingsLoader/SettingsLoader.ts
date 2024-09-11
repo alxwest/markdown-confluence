@@ -20,10 +20,11 @@ export abstract class SettingsLoader {
 			throw new Error("Confluence parent ID is required");
 		}
 
-		if (!settings.atlassianUserName) {
-			throw new Error("Atlassian user name is required");
+		if (!settings.personalAccessToken) {
+			if (!settings.atlassianUserName) {
+				throw new Error("Atlassian user name is required");
+			}
 		}
-
 		if (!settings.atlassianApiToken) {
 			throw new Error("Atlassian API token is required");
 		}

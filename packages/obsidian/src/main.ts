@@ -23,13 +23,13 @@ import { Mermaid } from "mermaid";
 export interface ObsidianPluginSettings
 	extends ConfluenceUploadSettings.ConfluenceSettings {
 	mermaidTheme:
-		| "match-obsidian"
-		| "light-obsidian"
-		| "dark-obsidian"
-		| "default"
-		| "neutral"
-		| "dark"
-		| "forest";
+	| "match-obsidian"
+	| "light-obsidian"
+	| "dark-obsidian"
+	| "default"
+	| "neutral"
+	| "dark"
+	| "forest";
 }
 
 interface FailedFile {
@@ -74,12 +74,17 @@ export default class ConfluencePlugin extends Plugin {
 		);
 		const confluenceClient = new ObsidianConfluenceClient({
 			host: this.settings.confluenceBaseUrl,
-			authentication: {
-				basic: {
-					email: this.settings.atlassianUserName,
-					apiToken: this.settings.atlassianApiToken,
+			apiPrefix: this.settings.apiPrefix,
+			authentication: this.settings.personalAccessToken
+				? {
+					personalAccessToken: this.settings.personalAccessToken,
+				}
+				: {
+					basic: {
+						email: this.settings.atlassianUserName,
+						apiToken: this.settings.atlassianApiToken,
+					},
 				},
-			},
 			middlewares: {
 				onError(e) {
 					if ("response" in e && "data" in e.response) {
@@ -261,7 +266,7 @@ export default class ConfluencePlugin extends Plugin {
 					});
 				const adf = JSON.parse(
 					testingPage.body?.atlas_doc_format?.value ||
-						'{type: "doc", content:[]}',
+					'{type: "doc", content:[]}',
 				);
 				renderADFDoc(adf);
 			},
@@ -460,7 +465,7 @@ export default class ConfluencePlugin extends Plugin {
 							) {
 								const element =
 									values[
-										propertyKey as keyof ConfluencePerPageUIValues
+									propertyKey as keyof ConfluencePerPageUIValues
 									];
 								if (element.isSet) {
 									valuesToSet[
@@ -483,7 +488,7 @@ export default class ConfluencePlugin extends Plugin {
 		this.addSettingTab(new ConfluenceSettingTab(this.app, this));
 	}
 
-	override async onunload() {}
+	override async onunload() { }
 
 	async loadSettings() {
 		this.settings = Object.assign(
